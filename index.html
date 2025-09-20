@@ -62,6 +62,10 @@ hr{border:none;border-top:1px solid var(--line);margin:1rem 0}
 /* duration field visuals */
 input.duration-hm{font-variant-numeric:tabular-nums;letter-spacing:.3px}
 input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180,83,9,.15)}
+/* Ensure the HTML `hidden` attribute actually hides elements,
+   even when other rules (e.g., .btn) set display */
+[hidden] { display: none !important; }
+
 </style>
 </head>
 <body>
