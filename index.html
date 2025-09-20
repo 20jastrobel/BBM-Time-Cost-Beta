@@ -104,11 +104,11 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
       <div class="body">
         <div class="grid two">
           <div>
-            <label>Lead</label>
-            <input type="text" class="lead" placeholder="Lead name" />
+            <label>Lead (optional)</label>
+            <input type="text" class="lead" placeholder="Lead name (optional)" />
           </div>
           <div>
-            <label>Customer / Client</label>
+            <label>Customer name (optional)</label>
             <input type="text" class="client" placeholder="Client name" />
           </div>
           <div>
@@ -116,7 +116,7 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
             <input type="email" class="client-email" placeholder="name@example.com" />
           </div>
           <div>
-            <label>Hourly Rate (team)</label>
+            <label>Hourly Rate (required)</label>
             <input type="number" min="0" step="0.01" class="rate" placeholder="e.g., 189" />
           </div>
         </div>
@@ -125,7 +125,7 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
 
         <div class="grid">
           <div>
-            <label>Additional Moving Specialist</label>
+            <label>Moving Specialist (optional)</label>
             <div class="inline ms-list"></div>
             <div class="inline">
               <button class="btn secondary add-ms" type="button">＋ Add MS</button>
@@ -152,7 +152,7 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
   </div>
 
  <div class="form-row">
-  <label id="eta-label">Auto-computed predicted time of arrival back at office:</label>
+  <label id="eta-label">Auto-computed time of arrival back at office:</label>
   <div class="pill" aria-labelledby="eta-label">
     <span class="eta" aria-live="polite">—</span>
   </div>
@@ -178,7 +178,7 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
             </div>
           </div>
           <div>
-            <label>Additional Services</label>
+            <label>Additional Services (optional)</label>
             <div class="fees"></div>
             <div class="inline">
               <button class="btn secondary add-fee" type="button">＋ Add service</button>
@@ -224,8 +224,8 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
           <div class="row"><div>Additional services:</div><div class="fees-out">—</div></div>
           <div class="row"><div>Card fee (3.5% if card):</div><div class="cardfee">—</div></div>
           <div class="row"><div class="em">Total due:</div><div class="total em">—</div></div>
-          <div class="kicker ok done-msg" style="margin-top:.5rem;display:none">Do these numbers look right? If not, double-check what values you used above.</div>
-          <div class="notice email-warn" style="margin-top:.5rem;display:none">Email attachments cannot be auto-added from a static page. Attach the downloaded PDF in your email client. Optional EmailJS can be configured in CONFIG.</div>
+          <div class="kicker ok done-msg" style="margin-top:.5rem;display:none">Do these numbers look right? If not, double-check the values you used above.</div>
+          <div class="notice email-warn" style="margin-top:.5rem;display:none">Does this match GO Payment? Does this match your Payment Sheet?</div>
         </div>
       </div>
     </section>
@@ -313,7 +313,7 @@ const CONFIG = {
   function addFeeRow(feesWrap){
     const row = document.createElement('div'); row.className='grid two'; row.style.alignItems='end'; row.style.marginBottom='.5rem';
     row.innerHTML = `
-      <div><input type="text" class="fee-label" placeholder="Fee label (e.g., Packing)"></div>
+      <div><input type="text" class="fee-label" placeholder="Service Name (Required)"></div>
       <div class="minicol">
         <input type="number" class="fee-amt" min="0" step="0.01" placeholder="Amount (e.g., 20.00)">
         <button type="button" class="remover">Remove</button>
@@ -442,7 +442,7 @@ const CONFIG = {
     doc.text(`Lead: ${res.lead || '—'}`, padX, y+=lineH);
     doc.text(`Movers: ${res.ms && res.ms.length ? res.ms.join(', ') : '—'}`, padX, y+=lineH);
     doc.text(`Client: ${res.client || '—'}`, padX, y+=lineH);
-    doc.text(`Client Email: ${res.clientEmail || '—'}`, padX, y+=lineH);
+    doc.text(`Client Email (optional): ${res.clientEmail || '—'}`, padX, y+=lineH);
     doc.text(`Notes: ${res.notes || '—'}`, padX, y+=lineH);
     y += 10;
 
