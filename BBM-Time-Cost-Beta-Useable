@@ -134,12 +134,12 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
 
 <section class="move-return">
   <div class="form-row">
-    <label for="left-office-time">Left office at (HH:MM)</label>
+    <label for="left-office-time">Left office at (HH:MM):</label>
     <input id="left-office-time" type="time" class="left-office-time" step="60" />
   </div>
 
   <div class="form-row">
-    <label for="duration-hm">Expected travel time from current location to office (HH:MM)</label>
+    <label for="duration-hm">Expected travel time from current location to office (HH:MM):</label>
     <div class="input-with-button">
       <input id="duration-hm" type="text" class="duration-hm" inputmode="numeric" autocomplete="off"
              placeholder="HH:MM or minutes" pattern="^(\d+|(\d{1,4}:[0-5]\d))$" value="00:00" />
@@ -147,10 +147,17 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
     </div>
   </div>
 
-  <div class="form-row">
-    <label>Auto-computed predicted time of arrival back at office:</label>
-    <div class="pill"><span class="eta">—</span></div>
+ <div class="form-row">
+  <label id="eta-label">Auto-computed predicted time of arrival back at office:</label>
+  <div class="pill" aria-labelledby="eta-label">
+    <span class="eta" aria-live="polite">—</span>
   </div>
+</div>
+
+<div class="notice" role="alert">
+  <strong>Important:</strong> Make sure your device’s date & time are correct, or this result will be wrong.
+</div>
+
 </section>
 
         <hr />
@@ -161,8 +168,6 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
               <label>Fuel surcharge</label>
               <div class="inline">
                 <input type="number" min="0" step="0.01" class="fuel" placeholder="e.g., 25.00" />
-                <button class="btn secondary auto-fuel" type="button">⟲ Auto-calc</button>
-                <span class="help">If BBM opts for stream-lined auto computational fuel charge.</span>
               </div>
             </div>
           </div>
@@ -170,7 +175,7 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
             <label>Additional Services</label>
             <div class="fees"></div>
             <div class="inline">
-              <button class="btn secondary add-fee" type="button">＋ Add fee</button>
+              <button class="btn secondary add-fee" type="button">＋ Add service</button>
               <span class="help">E.g., Mattress protection, packing supplies, TV box, etc.</span>
             </div>
           </div>
@@ -198,7 +203,7 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
           <button class="btn calc" type="button">Calculate</button>
           <button class="btn secondary pdf" type="button" disabled>Download PDF</button>
           <button class="btn ghost email" type="button" disabled>Email receipt</button>
-          <span class="help">PDF first; “Email receipt” opens a draft to customer + BBM. Attach the PDF.</span>
+          <span class="help">Emailing receipt button has been disabled; Send receipt by GO PAYMENT.</span>
         </div>
 
         <div class="result" style="margin-top:1rem;display:none">
@@ -213,7 +218,7 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
           <div class="row"><div>Additional services:</div><div class="fees-out">—</div></div>
           <div class="row"><div>Card fee (3.5% if card):</div><div class="cardfee">—</div></div>
           <div class="row"><div class="em">Total due:</div><div class="total em">—</div></div>
-          <div class="kicker ok done-msg" style="margin-top:.5rem;display:none">Ready — PDF can be generated and emailed.</div>
+          <div class="kicker ok done-msg" style="margin-top:.5rem;display:none">Do these numbers look right? If not, double-check what values you used above.</div>
           <div class="notice email-warn" style="margin-top:.5rem;display:none">Email attachments cannot be auto-added from a static page. Attach the downloaded PDF in your email client. Optional EmailJS can be configured in CONFIG.</div>
         </div>
       </div>
@@ -304,7 +309,7 @@ const CONFIG = {
     row.innerHTML = `
       <div><input type="text" class="fee-label" placeholder="Fee label (e.g., Packing)"></div>
       <div class="minicol">
-        <input type="number" class="fee-amt" min="0" step="0.01" placeholder="Amount">
+        <input type="number" class="fee-amt" min="0" step="0.01" placeholder="Amount (e.g., 20.00)">
         <button type="button" class="remover">Remove</button>
       </div>`;
     $('.remover', row).onclick=()=>row.remove(); feesWrap.appendChild(row);
@@ -439,7 +444,7 @@ const CONFIG = {
     const billed = msToHMin(res.billedMs);
     doc.text(`Left office: ${fmtClock(res.left)}`, padX, y+=lineH);
     doc.text(`Expected return: ${fmtClock(res.returnAt)}${res.crossedMidnight?' (next day)':''}`, padX, y+=lineH);
-    doc.text(`Travel duration: ${Math.floor(res.travelMin/60)} hr ${res.travelMin%60} min`, padX, y+=lineH);
+    doc.text(`Travel duration to office: ${Math.floor(res.travelMin/60)} hr ${res.travelMin%60} min`, padX, y+=lineH);
     doc.text(`Billed time (15-min rounding): ${billed.h} hr ${billed.m} min`, padX, y+=lineH);
     y += 10;
 
