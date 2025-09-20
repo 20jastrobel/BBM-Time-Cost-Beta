@@ -147,15 +147,17 @@ input.duration-hm:invalid{border-color:var(--warn);box-shadow:0 0 0 3px rgba(180
     </div>
   </div>
 
-  <div class="form-row">
+ <div class="form-row">
   <label id="eta-label">Auto-computed predicted time of arrival back at office:</label>
-  <div class="pill" aria-labelledby="eta-label" aria-describedby="eta-note">
+  <div class="pill" aria-labelledby="eta-label">
     <span class="eta" aria-live="polite">—</span>
   </div>
-  <p id="eta-note" class="help" role="note">
-    Important: Make sure your device’s date & time are correct, or this result will be wrong.
-  </p>
 </div>
+
+<div class="notice" role="alert">
+  <strong>Important:</strong> Make sure your device’s date & time are correct, or this result will be wrong!
+</div>
+
 
 </section>
 
