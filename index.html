@@ -563,14 +563,6 @@ const CONFIG = {
     return card;
   }
 
- /* Hide the button and its help text */
-.auto-fuel,
-.auto-fuel + .help { display: none !important; }
-
-/* Optional: close up spacing if that row uses flex/gap */
-.inline { gap: 0.5rem; }
-.btn.secondary.auto-fuel { margin: 0; }
-
 
   function renumber(){ $$('#cards .card').forEach((card,i)=>$('.mv-index',card).textContent=String(i+1)); }
 
