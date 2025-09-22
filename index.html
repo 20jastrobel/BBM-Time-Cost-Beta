@@ -318,7 +318,7 @@ const CONFIG = {
     row.innerHTML = `
       <div><input type="text" class="fee-label" placeholder="Service Name (Required)"></div>
       <div class="minicol">
-        <input type="number" class="fee-amt" min="0" step="0.01" placeholder="Amount (e.g., 20.00)">
+        <input type="number" class="fee-amt" min="0" step="1.0" placeholder="Amount (e.g., 20.00)">
         <button type="button" class="remover">Remove</button>
       </div>`;
     $('.remover', row).onclick=()=>row.remove(); feesWrap.appendChild(row);
